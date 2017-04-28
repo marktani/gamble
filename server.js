@@ -1,5 +1,6 @@
 const express = require('express')
 const next = require('next')
+const passport = require('passport')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -9,11 +10,17 @@ app.prepare()
 .then(() => {
   const server = express()
 
-  server.get('/p/:id', (req, res) => {
-    const actualPage = '/post'
+  server.use(passport.initialize())
+  passport.use(require('./server/steam'))
+
+  server.get('/u/:id', (req, res) => {
+    const actualPage = '/user'
     const queryParams = { id: req.params.id }
     app.render(req, res, actualPage, queryParams)
   })
+
+  const authRoutes = require('./server/routes')
+  server.use('/auth', authRoutes)
 
   server.get('*', (req, res) => {
     return handle(req, res)

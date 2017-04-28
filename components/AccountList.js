@@ -1,5 +1,6 @@
 import { gql, graphql } from 'react-apollo'
 import { Feed, Icon } from 'semantic-ui-react'
+import Link from 'next/link'
 
 function AccountList({ data: { allAccounts } }) {
     if (allAccounts && allAccounts.length) {
@@ -12,8 +13,7 @@ function AccountList({ data: { allAccounts } }) {
                         </Feed.Label>
                         <Feed.Content>
                             <Feed.Summary>
-                                <Feed.User>{account.nickname}</Feed.User> have ${account.balance}
-                                <Feed.Date>1 hour ago</Feed.Date>
+                        	    <Link as={`/u/${account.steamid}`} href={`/user?id=${account.steamid}`} prefetch><Feed.User>{account.nickname}</Feed.User></Link>
                             </Feed.Summary>
                         </Feed.Content>
                     </Feed.Event>
@@ -28,6 +28,7 @@ const allAccounts = gql`
     query allAccounts {
         allAccounts(orderBy: createdAt_DESC) {
             id,
+            steamid,
             nickname,
             avatar,
             balance
