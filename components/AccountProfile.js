@@ -11,9 +11,8 @@ function AccountProfile({ data: { accountQuery } }) {
 }
 
 const accountQuery = gql`
-    query accountQuery {
-  Account(steamid: "76561198190392539") {
-    steamid,
+    query accountQuery($steamid: String!) {
+  Account(steamid: $steamid) {
     nickname,
     avatar
   }
@@ -23,5 +22,8 @@ const accountQuery = gql`
 export default graphql(accountQuery, {
     props: ({ data }) => ({
         data
-    })
+    }),
+    variables: {
+        steamid: userData.steamid
+    }
 })(AccountProfile)
