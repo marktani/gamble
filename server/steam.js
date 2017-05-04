@@ -3,6 +3,8 @@ const Apollo = require('react-apollo')
 const jwt = require('jsonwebtoken')
 const SteamStrategy = require('passport-steam').Strategy
 
+const jwtsecret = process.env.jwtsecret || 'please/set+a!jwt&&s3cr3t'
+
 const client = new Apollo.ApolloClient({
     networkInterface: Apollo.createNetworkInterface({
         uri: 'https://api.graph.cool/simple/v1/furval'
@@ -44,7 +46,7 @@ module.exports = new SteamStrategy({
         const payload = {
             sub: data.data.Account.id
         }
-        const token = jwt.sign(payload, 'some fucking secret')
+        const token = jwt.sign(payload, jwtsecret)
         return done(null, token, userData)
     })
     .catch(error => console.error(error))

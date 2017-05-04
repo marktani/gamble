@@ -8,6 +8,9 @@ export default ({ pathname }) => (
     <Link prefetch href='/about'>
       <a className={pathname === '/about' && 'is-active'}>About</a>
     </Link>
+    <Link href='/chat'>
+      <a className={pathname === '/chat' && 'is-active'}>Chat</a>
+    </Link>
     <a href="/auth/steam">Login</a>
 
     <style jsx>{`

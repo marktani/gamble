@@ -3,8 +3,8 @@ const next = require('next')
 const passport = require('passport')
 const sessions = require('client-sessions')
 
-
 const dev = process.env.NODE_ENV !== 'production'
+const cookiesecret = process.env.cookiesecret || 'please/set+a!cookie&&s3cr3t'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
@@ -14,7 +14,7 @@ app.prepare()
 
   server.use(sessions({
     cookieNmae: 'arena',
-    secret: 'somefuckingsecretidk+1238916',
+    secret: cookiesecret,
     duration: 7 * 24 * 60 * 60 * 1000,
     activeDuration: 1000 * 60 * 5
   }))
@@ -41,7 +41,7 @@ app.prepare()
 
   server.listen(3000, (err) => {
     if (err) throw err
-    console.log('> Ready on http://localhost:3000')
+    console.log('>>> Ready on http://localhost:3000')
   })
 })
 .catch((ex) => {
