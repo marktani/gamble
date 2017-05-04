@@ -36,7 +36,7 @@ module.exports = new SteamStrategy({
         console.log(userData.avatar)
         console.log(data.data.Account.avatar)
 
-        if (data.data.Account.nickname !== userData.nickname && data.data.Account.avatar !== userData.avatar) {
+        if (data.data.Account.nickname !== userData.nickname || data.data.Account.avatar !== userData.avatar) {
             console.log('User should be updated for nickname and avatar')
             //TODO: Run mutation updateUser
         }
