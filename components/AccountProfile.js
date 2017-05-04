@@ -21,9 +21,7 @@ const accountQuery = gql`
 
 export default graphql(accountQuery, {
     props: ({ data }) => ({
-        data
-    }),
-    variables: {
-        steamid: userData.steamid
-    }
+        data,
+        steamid: "76561198190392539"
+    })
 })(AccountProfile)

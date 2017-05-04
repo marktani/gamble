@@ -10,3 +10,4 @@ export default withData((props) => (
     </App>
 ))
 //TODO: Add some sort of profile page showing recent wins? currency, stream and stuff. Follow function?
+//TODO: Pass props.url.query.id to AccountProfile || <AccountProfile id={props.url.query.id} />
