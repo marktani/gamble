@@ -1,19 +1,25 @@
 import { gql, graphql } from 'react-apollo'
 
-function AccountProfile({ id, data: { loading, error, accountQuery } }) {
+function AccountProfile({ id, data: { loading, error, allAccounts } }) {
     if (error) { return <p>{error.message}</p> }
-if (loading) { return <p>Loading {id}</p> }
-console.log(accountQuery)
-    if (accountQuery) {
-        return <div>Username: {accountQuery}</div>
+    if (loading) {
+      return <p>Loading {id}</p>
+    } else {
+      debugger
+      if (allAccounts) {
+          return <div>Username: {allAccounts[0].nickname}</div>
+      }
     }
-    return <p>No account with this id.</p> 
+    return <p>No account with this id.</p>
 }
 
 const accountQuery = gql`
     query Account($steamid: String!) {
-        Account(steamid: $steamid) {
-            nickname,
+        allAccounts(filter: {
+          steamid: $steamid
+        }) {
+            id
+            nickname
             avatar
         }
     }
